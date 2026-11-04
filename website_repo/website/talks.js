@@ -27,7 +27,7 @@
 const TALKS = [
   {
     date: "2026-11-13",
-    time: "11:00-11:30",
+    time: "13:30-14:00",
     speaker: "Rebecca Chang",
     affiliation: "University of Warwick",
     title: "TBA",
@@ -37,7 +37,7 @@ const TALKS = [
   },
   {
     date: "2026-11-13",
-    time: "11:30-12:00",
+    time: "14:00-14:30",
     speaker: "Tariq Mahassen",
     affiliation: "University of Sheffield",
     title: "Quantum Fokker-Planck solvers as trainable generative models",
