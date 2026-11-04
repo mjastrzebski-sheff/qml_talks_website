@@ -6,6 +6,8 @@
 //    into "Upcoming" and "Past" based on today's date.
 //  • Copy an existing entry, paste it, and change the details.
 //  • Leave out any optional field you don't need.
+//  • Two or more speakers on one day: add one entry per speaker with the same
+//    date. They appear together under that date, ordered by time.
 //
 //  Fields:
 //    date         required   "YYYY-MM-DD"

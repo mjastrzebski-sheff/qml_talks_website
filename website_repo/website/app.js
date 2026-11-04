@@ -17,8 +17,14 @@ function escapeHtml(str) {
     .replace(/"/g, "&quot;");
 }
 
-function renderTalk(talk, isNext) {
-  const date = parseDate(talk.date);
+// Expects talks sorted by date; returns one array of talks per day
+function groupByDay(talks) {
+  const days = new Map();
+  talks.forEach((t) => days.set(t.date, [...(days.get(t.date) || []), t]));
+  return [...days.values()];
+}
+
+function renderTalk(talk) {
   const e = (s) => escapeHtml(s);
 
   const meta = [talk.time, talk.location].filter(Boolean).map(e).join(" · ");
@@ -37,21 +43,30 @@ function renderTalk(talk, isNext) {
   ].filter(Boolean);
 
   return `
+    <div class="talk__item">
+      <h3 class="talk__title">${e(talk.title)}</h3>
+      <p class="talk__speaker">
+        <strong>${e(talk.speaker)}</strong>${talk.affiliation ? `<span class="affiliation">, ${e(talk.affiliation)}</span>` : ""}
+      </p>
+      ${meta ? `<p class="talk__meta">${meta}</p>` : ""}
+      ${abstract}
+      ${links.length ? `<p class="talk__links">${links.join("")}</p>` : ""}
+    </div>`;
+}
+
+function renderDay(talks, isNext) {
+  const date = parseDate(talks[0].date);
+
+  return `
     <article class="talk${isNext ? " talk--next" : ""}">
-      <time class="date" datetime="${e(talk.date)}">
+      <time class="date" datetime="${escapeHtml(talks[0].date)}">
         <span class="date__weekday">${WEEKDAYS[date.getDay()]}</span>
         <span class="date__day">${date.getDate()}</span>
         <span class="date__month">${MONTHS[date.getMonth()]} ${date.getFullYear()}</span>
       </time>
       <div class="talk__body">
-        ${isNext ? `<p class="badge">Next talk</p>` : ""}
-        <h3 class="talk__title">${e(talk.title)}</h3>
-        <p class="talk__speaker">
-          <strong>${e(talk.speaker)}</strong>${talk.affiliation ? `<span class="affiliation">, ${e(talk.affiliation)}</span>` : ""}
-        </p>
-        ${meta ? `<p class="talk__meta">${meta}</p>` : ""}
-        ${abstract}
-        ${links.length ? `<p class="talk__links">${links.join("")}</p>` : ""}
+        ${isNext ? `<p class="badge">Next ${talks.length > 1 ? "talks" : "talk"}</p>` : ""}
+        ${talks.map(renderTalk).join("")}
       </div>
     </article>`;
 }
@@ -60,15 +75,18 @@ function render() {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const byDate = (a, b) => parseDate(a.date) - parseDate(b.date);
-  const upcoming = TALKS.filter((t) => parseDate(t.date) >= today).sort(byDate);
-  const past = TALKS.filter((t) => parseDate(t.date) < today).sort(byDate).reverse();
+  const byDateThenTime = (a, b) =>
+    parseDate(a.date) - parseDate(b.date) ||
+    (a.time || "").localeCompare(b.time || "", undefined, { numeric: true });
+  const days = groupByDay([...TALKS].sort(byDateThenTime));
+  const upcoming = days.filter((d) => parseDate(d[0].date) >= today);
+  const past = days.filter((d) => parseDate(d[0].date) < today).reverse();
 
   document.getElementById("upcoming-list").innerHTML = upcoming.length
-    ? upcoming.map((t, i) => renderTalk(t, i === 0)).join("")
+    ? upcoming.map((d, i) => renderDay(d, i === 0)).join("")
     : `<p class="empty">No upcoming talks scheduled yet. Check back soon.</p>`;
 
-  document.getElementById("past-list").innerHTML = past.map((t) => renderTalk(t, false)).join("");
+  document.getElementById("past-list").innerHTML = past.map((d) => renderDay(d, false)).join("");
   document.getElementById("past").hidden = past.length === 0;
 }
 

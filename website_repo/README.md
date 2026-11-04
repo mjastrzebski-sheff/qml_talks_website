@@ -6,6 +6,8 @@ A simple static talk schedule, published with GitHub Pages.
 
 Edit **`website/talks.js`**. Copy an existing entry, paste it, and change the details. Order doesn't matter: talks are sorted by date and split into *Upcoming* and *Past* automatically. Commit and push, and the site updates within a minute or two.
 
+For more than one speaker on the same day, add one entry per speaker with the same `date`. They appear together under that date, ordered by `time`.
+
 Slides go in `speaker_prezzies/` and are linked from a talk with `slides: "speaker_prezzies/<file>.pdf"`.
 
 ## Folders

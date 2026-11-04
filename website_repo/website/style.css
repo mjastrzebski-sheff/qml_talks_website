@@ -122,7 +122,13 @@ h2 {
   font-weight: 700;
 }
 
-.talk__body { min-width: 0; }
+.talk__body { flex-grow: 1; min-width: 0; }
+/* Second and later talks on the same day */
+.talk__item + .talk__item {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
 .talk__title {
   margin: 0 0 6px;
   font-size: 1.1rem;
