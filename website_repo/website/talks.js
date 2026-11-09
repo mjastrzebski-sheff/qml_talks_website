@@ -48,7 +48,7 @@ const TALKS = [
   {
     date: "2026-12-11",
     time: "13:30-14:00",
-    speaker: "Helene",
+    speaker: "Helene Losl",
     affiliation: "University of Oxford",
     title: "Variational Learning with Sparse Long-range Entangling Gates",
     location: "Online",
