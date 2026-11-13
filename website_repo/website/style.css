@@ -204,3 +204,12 @@ h2 {
   }
   .date__day { font-size: 1.1rem; }
 }
+
+/* "Site has moved" banner (old repo only) */
+.moved-banner {
+  background: var(--accent-soft);
+  border-bottom: 1px solid var(--accent);
+  padding: 14px 0;
+  font-size: 16px;
+}
+.moved-banner a { font-weight: 600; overflow-wrap: anywhere; }
