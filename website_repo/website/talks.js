@@ -30,10 +30,10 @@ const TALKS = [
     time: "13:30-14:00",
     speaker: "Rebecca Chang",
     affiliation: "University of Warwick",
-    title: "TBA",
+    title: "Sample-optimal learning of stabilizer states",
     location: "Online",
     link: "https://universityofexeter.zoom.us/j/93484713848?pwd=YUxWeDE4UysxQVBmNEkzK1J6WGlRdz09",
-    abstract: "TBA",
+    abstract: "It is well-known that learning a pure n-qubit stabilizer state |ψ⟩ both requires, and can be accomplished with, access to a number of copies of |ψ⟩ linear in n. However, the precise constant coefficient of this scaling does not appear to have been determined. Here we prove that Lδ(n), the smallest number of copies from which a quantum procedure can identify any stabilizer state with failure probability at most 0<δ<1/8, satisfies n+⌈log2(1/δ)⌉−3≤Lδ(n)≤n+⌈log2(1/δ)⌉+4. We present a polynomial-time quantum learning algorithm that saturates this bound, achieving a constant factor improvement in sample-complexity over previously known approaches. As an immediate corollary, we obtain via the Choi-Jamiolkowski isomorphism an algorithm for learning an unknown n-qubit Clifford unitary from 2n+⌈log2(1/δ)⌉+4 queries, the n-dependence of which we show to be optimal. Our proof technique, which involves Fourier analysis on the abelian group ℤn4×𝔽n(n−1)/22, seems to be qualitatively different to previous approaches to stabilizer state learning, and may be of some independent interest; in particular, it admits natural generalisations to further problems in quantum learning theory.",
   },
   {
     date: "2026-11-13",
